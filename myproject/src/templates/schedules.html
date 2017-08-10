@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {%include 'snippets/nav.html'%}
+
+  <h1>Schedules and Booking</h1>
+      {% for studio in studio_var%}
+        <h2>At {{studio}}</br></h2>
+        {% for month in month_var%}
+    <p>Schedules for the month of {{month}}</p>
+        {%endfor%}
+      {%endfor%}
+
+
+{% endblock %}

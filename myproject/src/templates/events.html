@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{%block content%}
+{%include 'snippets/nav.html'%}
+    <h1>Flamenco Events</h1>
+    {% for studio in studio_var%}
+      <h2>At {{studio}}</br></h2>
+
+      {% for event in event_list%}
+      <p>{{event}} is happening this month</p>
+      {%endfor%}
+    {%endfor%}
+  </body>
+</html>
+{%endblock content%}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{%block content%}
+
+    <h1>Studio Reservations</h1>
+    <ul>
+      {% for obj in obj_list%}
+      <li>{{obj.name}}  {{obj.studio}}  {{obj.teacher}}</li>
+      <li>Booked from: {{obj.From}} </li>
+      <li>Till: {{obj.To}} </li>
+      {%endfor%}
+    </ul>
+
+{%endblock%}
