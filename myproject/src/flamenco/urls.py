@@ -18,18 +18,17 @@ from django.contrib import admin
 from calender import views as core_views
 from django.contrib.auth import views as auth_views
 
-from calender.views import home, events, venues,reservations,signup
+from calender.views import home,schedules,studios,signup,studioform
 from django.views.generic import TemplateView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', core_views.home, name='home'),
     url(r'^schedules/$', core_views.schedules, name='schedules'),
-    url(r'^events/$', core_views.events, name='events'),
-    url(r'^venues/$', core_views.venues, name='venues'),
-    url(r'^reservations/$',core_views.venues,name='reservations'),
-    #url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^studios/$', core_views.studios, name='studios'),
+    #url(r'^studios/$',StudioView.as_view(),name='studios'),
     url(r'^signup/$', core_views.signup, name='signup'),
+    url(r'^studioform/$', core_views.studioform, name='studioform'),
     url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': 'login'}, name='logout'),
 ]
