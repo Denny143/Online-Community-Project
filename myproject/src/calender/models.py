@@ -1,29 +1,55 @@
+from django.conf import settings
 from django.db import models
 
 # Create your models here.
 
-class studio_calendar(models.Model):
-    Owner_name=models.CharField(max_length=120)
-    Studio_name=models.CharField(max_length=120, null=True, blank=True)
-    Teacher_name=models.CharField(max_length=120, null=True, blank=True)
-    timestamp=models.DateTimeField(auto_now_add=True)
+
+class Place(models.Model):
+    name = models.CharField(max_length=50)
+    address = models.CharField(max_length=80)
+
+    def __str__(self):
+        return self.name
+
+
+
+class Teacher(models.Model):
+    place = models.ForeignKey(
+        Place,
+        on_delete=models.CASCADE,
+            )
+
+    teacher = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+
+    teach_from=models.DateTimeField(auto_now=False,auto_now_add=False)
+    teach_to=models.DateTimeField(auto_now=False,auto_now_add=False)
+
+    created_on=models.DateTimeField(auto_now_add=True)
     updated=models.DateTimeField(auto_now=True)
-    Operate_From=models.DateTimeField(auto_now=False,auto_now_add=False)
-    Operate_To=models.DateTimeField(auto_now=False,auto_now_add=False)
-    Hourly_rate=models.DecimalField(max_digits=10,decimal_places=2,null=True,default=0.00)
-
 
     def __str__(self):
-        return self.Studio_name
+        return "%s at %s" % (self.teacher, self.place)
 
-class user_calendar(models.Model):
-    studio=models.ForeignKey('studio_calendar', on_delete=models.CASCADE)
-    User_name=models.CharField(max_length=120)
-    Date=models.DateField(auto_now=False,auto_now_add=False,null=True)
-    User_booked_from=models.TimeField(auto_now=False,auto_now_add=False)
-    User_booked_to=models.TimeField(auto_now=False,auto_now_add=False)
-    User_actually_from=models.TimeField(auto_now=False,auto_now_add=False)
-    User_actually_to=models.TimeField(auto_now=False,auto_now_add=False)
+
+class StudioUser(models.Model):
+    place = models.ForeignKey(
+        Place,
+        on_delete=models.CASCADE,null=True
+            )
+
+    studio_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,null=True
+    )
+
+    booked_from=models.DateTimeField(auto_now=False,auto_now_add=False)
+    booked_to=models.DateTimeField(auto_now=False,auto_now_add=False)
+
+    created_on=models.DateTimeField(auto_now_add=True)
+    updated=models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.User_name
+        return "%s at %s" % (self.studio_user, self.place)

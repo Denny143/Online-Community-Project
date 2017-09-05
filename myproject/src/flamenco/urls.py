@@ -15,20 +15,23 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
-from calender import views as core_views
+from calender import views as calender_views
 from django.contrib.auth import views as auth_views
+from calender.views import TeacherCreate,StudioUserCreate,StudioDayView
+from calender.views import home,schedules,studios,signup
 
-from calender.views import home,schedules,studios,signup,studioform
-from django.views.generic import TemplateView
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', core_views.home, name='home'),
-    url(r'^schedules/$', core_views.schedules, name='schedules'),
-    url(r'^studios/$', core_views.studios, name='studios'),
+    url(r'^$', calender_views.home, name='home'),
+    url(r'^teachers/$', TeacherCreate.as_view(), name='teacher-add'),
+    url(r'^studiousers/$', StudioUserCreate.as_view(), name='studio_user-add'),
+    url(r'^(?P<year>[0-9]{4})/(?P<month>[0-9]+)/(?P<day>[0-9]+)/$', StudioDayView.as_view(month_format='%m'),name="studio_daily_schedule"),
+    url(r'^studio_calendar/$', calender_views.studios, name='studios'),
     #url(r'^studios/$',StudioView.as_view(),name='studios'),
-    url(r'^signup/$', core_views.signup, name='signup'),
-    url(r'^studioform/$', core_views.studioform, name='studioform'),
+    url(r'^signup/$', calender_views.signup, name='signup'),
+    #url(r'^studioform/$',studioform.as_view(), name='studioform'),
     url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': 'login'}, name='logout'),
 ]

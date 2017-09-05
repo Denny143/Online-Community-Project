@@ -9,6 +9,14 @@
 
     <header>
         <h1>Flamenco de Montreal</h1>
+        {% if messages %}
+            <ul class="messages">
+              {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
         {% if user.is_authenticated %}
           <a href="{% url 'logout' %}">logout</a>
           {% else %}
@@ -16,6 +24,8 @@
           {% endif %}
           <hr>
     </header>
+
+  
     <main>
       {% block content %}
       {% endblock content %}

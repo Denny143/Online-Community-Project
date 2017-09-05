@@ -6,7 +6,8 @@
 
     {%include 'snippets/nav.html'%}
 
-
+    <h1>{{currentyear}}</h1>
+    <h2>{{currentmonth}}</h2>
 
         <table class="cal_month_calendar">
           <tr>
@@ -17,7 +18,7 @@
             {% for week in calendar %}
             <tr>
               {% for day in week %}
-              <td{% if not day.in_month %} class="cal_not_in_month"{% endif %}>{% if day.event %}<a href="/studioform/">{{ day.day|date:"j" }}</a>{% else %}{{ day.day|date:"j" }}{% endif %}</td>
+              <td{% if not day.in_month %} class="cal_not_in_month"{% endif %}>{% if day.booking %}<a href="/{{currentyear}}/{{currentmonth}}/{{ day.day|date:"j" }}/">{{ day.day|date:"j" }}</a>{% else %}{{ day.day|date:"j" }}{% endif %}</td>
               {% endfor %}
             </tr>
             {% endfor %}

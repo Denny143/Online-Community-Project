@@ -2,8 +2,18 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import studio_calendar,user_calendar
+from .models import Place,Teacher,StudioUser
 
-admin.site.register(studio_calendar)
 
-admin.site.register(user_calendar)
+admin.site.register(Place)
+
+admin.site.register(StudioUser)
+
+admin.site.register(Teacher)
+
+#@admin.register(Teacher)
+#class TeacherAdmin(admin.ModelAdmin):
+#    def get_form(self, request, obj=None, **kwargs):
+#        if not request.user.is_superuser:
+#            self.exclude = ['authorized']
+#        return super(DocumentModelAdmin, self).get_form(request, obj, **kwargs)
