@@ -1,0 +1,25 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  {%include 'snippets/nav.html'%}
+
+  <h1>{{ day }}</h1>
+
+  <ul>
+      {% for obj in object_list %}
+          <li>From {{ obj.teach_from.time}} Till {{ obj.teach_to.time}}: {{ obj.teacher }} teaches at {{ obj.place }}</li>
+      {% endfor %}
+  </ul>
+
+  <p>
+      {% if previous_day %}
+          Previous booking was on : {{ previous_day }}
+      {% endif %}
+      {% if previous_day and next_day %}--{% endif %}
+      {% if next_day %}
+          The studio is next booked on  : {{ next_day }}
+      {% endif %}
+  </p>
+
+{% endblock %}
